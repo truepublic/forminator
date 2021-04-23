@@ -1,4 +1,4 @@
-import React, { createContext, FunctionComponent, ReactNode, useContext, FormEvent, useEffect, useState, useLayoutEffect } from 'react';
+import React, { createContext, FunctionComponent, ReactNode, useContext, FormEvent, useState, useLayoutEffect } from 'react';
 import { FormContext } from './form';
 import { FieldDescriptor } from '../forminator';
 import { ValidationError } from '../validation';
@@ -7,14 +7,14 @@ import { ValuePair } from '../hooks/use-field-states';
 type FieldArrayCtx = {
     name: string;
     values: string[];
-    setValue: (idx: number, value: string) => void;
+    setValue: (idx: number, value: any) => void;
     onBlur: (evt: FormEvent) => void;
     errors?: ValidationError[];
 };
 
 type CallableChildProps = {
     values: string[],
-    setValue: (idx: number, val: string) => void,
+    setValue: (idx: number, val: any) => void,
     onBlur?: (evt: FormEvent) => void,
     errors?: ValidationError[];
 };
@@ -60,7 +60,7 @@ export const FieldArray: FunctionComponent<Props> = props => {
         form.setFieldArrayValue(name, idx, value);
     };
 
-    const onBlur = (evt: FormEvent) => {
+    const onBlur = () => {
         if (field.validateOnBlur) {
             form.validateField(name, field as FieldDescriptor<any>, form.descriptor.fields);
         }
